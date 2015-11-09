@@ -276,13 +276,13 @@ int main(int argc, char* argv[])
 		bytes_sent += sendto(sock, buf, len, 0, (struct sockaddr*)&gcAddr, sizeof(struct sockaddr_in));
 		
 		/* Send HIL outputs */
-		float roll_ailerons = 0;   // -1 .. 1
-		float pitch_elevator = 0.2;  // -1 .. 1
-		float yaw_rudder = 0.1;      // -1 .. 1
-		float throttle = 0.9;      //  0 .. 1
-		mavlink_msg_hil_controls_pack_chan(mavlink_system.sysid, mavlink_system.compid, MAVLINK_COMM_0, &msg, microsSinceEpoch(), roll_ailerons, pitch_elevator, yaw_rudder, throttle, mavlink_system.mode, mavlink_system.nav_mode, 0, 0, 0, 0);
-		len = mavlink_msg_to_send_buffer(buf, &msg);
-		bytes_sent += sendto(sock, buf, len, 0, (struct sockaddr*)&gcAddr, sizeof(struct sockaddr_in));
+//		float roll_ailerons = 0;   // -1 .. 1
+//		float pitch_elevator = 0.2;  // -1 .. 1
+//		float yaw_rudder = 0.1;      // -1 .. 1
+//		float throttle = 0.9;      //  0 .. 1
+//		mavlink_msg_hil_controls_pack_chan(mavlink_system.sysid, mavlink_system.compid, MAVLINK_COMM_0, &msg, microsSinceEpoch(), roll_ailerons, pitch_elevator, yaw_rudder, throttle, mavlink_system.mode, mavlink_system.nav_mode, 0, 0, 0, 0);
+//		len = mavlink_msg_to_send_buffer(buf, &msg);
+//		bytes_sent += sendto(sock, buf, len, 0, (struct sockaddr*)&gcAddr, sizeof(struct sockaddr_in));
 		
 		memset(buf, 0, BUFFER_LENGTH);
 		recsize = recvfrom(sock, (void *)buf, BUFFER_LENGTH, 0, (struct sockaddr *)&gcAddr, &fromlen);
@@ -308,27 +308,27 @@ int main(int argc, char* argv[])
 					// Handle packet with parameter component
 					mavlink_pm_message_handler(MAVLINK_COMM_0, &msg);
 					
-					// Print HIL values sent to system
-					if (msg.msgid == MAVLINK_MSG_ID_HIL_STATE)
-					{
-						mavlink_hil_state_t hil;
-						mavlink_msg_hil_state_decode(&msg, &hil);
-						printf("Received HIL state:\n");
-						printf("R: %f P: %f Y: %f\n", hil.roll, hil.pitch, hil.yaw);
-						roll = hil.roll;
-						pitch = hil.pitch;
-						yaw = hil.yaw;
-						rollspeed = hil.rollspeed;
-						pitchspeed = hil.pitchspeed;
-						yawspeed = hil.yawspeed;
-						speedx = hil.vx;
-						speedy = hil.vy;
-						speedz = hil.vz;
-						latitude = hil.lat;
-						longitude = hil.lon;
-						altitude = hil.alt;
-						hilEnabled = true;
-					}
+//					// Print HIL values sent to system
+//					if (msg.msgid == MAVLINK_MSG_ID_HIL_STATE)
+//					{
+//						mavlink_hil_state_t hil;
+//						mavlink_msg_hil_state_decode(&msg, &hil);
+//						printf("Received HIL state:\n");
+//						printf("R: %f P: %f Y: %f\n", hil.roll, hil.pitch, hil.yaw);
+//						roll = hil.roll;
+//						pitch = hil.pitch;
+//						yaw = hil.yaw;
+//						rollspeed = hil.rollspeed;
+//						pitchspeed = hil.pitchspeed;
+//						yawspeed = hil.yawspeed;
+//						speedx = hil.vx;
+//						speedy = hil.vy;
+//						speedz = hil.vz;
+//						latitude = hil.lat;
+//						longitude = hil.lon;
+//						altitude = hil.alt;
+//						hilEnabled = true;
+//					}
 				}
 			}
 			printf("\n");

@@ -28,9 +28,9 @@ extern mavlink_wpm_storage wpm;
 extern void mavlink_missionlib_send_message(mavlink_message_t* msg);
 extern void mavlink_missionlib_send_gcs_string(const char* string);
 extern uint64_t mavlink_missionlib_get_system_timestamp();
-extern void mavlink_missionlib_current_waypoint_changed(uint16_t index, float param1,
-		float param2, float param3, float param4, float param5_lat_x,
-		float param6_lon_y, float param7_alt_z, uint8_t frame, uint16_t command);
+//extern void mavlink_missionlib_current_waypoint_changed(uint16_t index, float param1,
+//		float param2, float param3, float param4, float param5_lat_x,
+//		float param6_lon_y, float param7_alt_z, uint8_t frame, uint16_t command);
 
 
 #define MAVLINK_WPM_NO_PRINTF
@@ -134,9 +134,9 @@ void mavlink_wpm_send_setpoint(uint16_t seq)
     if(seq < wpm.size)
     {
         mavlink_mission_item_t *cur = &(wpm.waypoints[seq]);
-        mavlink_missionlib_current_waypoint_changed(cur->seq, cur->param1,
-        		cur->param2, cur->param3, cur->param4, cur->x,
-        		cur->y, cur->z, cur->frame, cur->command);
+//        mavlink_missionlib_current_waypoint_changed(cur->seq, cur->param1,
+//        		cur->param2, cur->param3, cur->param4, cur->x,
+//        		cur->y, cur->z, cur->frame, cur->command);
 
         wpm.timestamp_last_send_setpoint = mavlink_missionlib_get_system_timestamp();
     }
